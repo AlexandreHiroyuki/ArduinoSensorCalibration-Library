@@ -3,20 +3,28 @@
   Created by Alexandre Hiroyuki Yamauchi, November 4, 2018.
   Released under the MIT License.
 **********************************************************/
-#ifndef NoSerial_h
-#define NoSerial_h
+#ifndef NOSERIAL_H
+#define NOSERIAL_H
 
 #include <Arduino.h>
+#include <limits.h>
 
+typedef void (*namePrint)(void);
+
+void defaultName();
 class NoSerial
 {
   public:
-    NoSerial(int baud);
-    bool autoPrint(int value);
+    NoSerial(bool mode);
+    NoSerial(bool mode, namePrint name);
+
+    bool autoPrint(int value, int filterVal);
     bool commonPrint(int value);
 
   private:
-    bool _lastPrint;
+    bool _debugMode;
+    int _lastPrint;
+    namePrint _name;
 };
 
 #endif

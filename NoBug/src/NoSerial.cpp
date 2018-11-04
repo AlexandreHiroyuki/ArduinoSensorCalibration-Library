@@ -3,17 +3,61 @@
   Created by Alexandre Hiroyuki Yamauchi, November 4, 2018.
   Released under the MIT License.
 **********************************************************/
-#include "NoSerial.h"
+#include <NoSerial.h>
+#include <stdlib.h>
 
-bool NoSerial::autoPrint(int value)
+void defaultName()
 {
-  Serial.println(value);
-
-  _lastPrint = true;
-  return true;
+  Serial.print("Nameless: ");
+  return;
 }
 
-NoSerial::NoSerial(int baud)
+NoSerial::NoSerial(bool mode)
 {
-  Serial.begin(baud);
+  _debugMode = mode;
+  _lastPrint = INT_MAX;
+  _name = defaultName;
+}
+NoSerial::NoSerial(bool mode, namePrint name)
+{
+  _debugMode = mode;
+  _lastPrint = INT_MAX;
+  _name = name;
+}
+
+bool NoSerial::autoPrint(int value, int filterVal)
+{
+  if (_debugMode)
+  {
+    int filter = value - _lastPrint;
+    if (((filter > 0) && (filter >= filterVal)) || ((filter < 0) && (filter <= filterVal * -1)))
+    {
+      _name();
+      size_t printed = Serial.println(value);
+
+      if (printed < 3)
+        Serial.println("No value received!");
+
+      _lastPrint = value;
+      return true;
+    }
+  }
+
+  return false;
+}
+
+bool NoSerial::commonPrint(int value)
+{
+  if (_debugMode)
+  {
+    _name();
+    size_t printed = Serial.println(value);
+
+    if (printed < 3)
+      Serial.println("No value received!");
+
+    return true;
+  }
+
+  return false;
 }

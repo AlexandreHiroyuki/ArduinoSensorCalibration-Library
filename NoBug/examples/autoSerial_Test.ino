@@ -1,11 +1,22 @@
 #include <NoBug.h>
 
+#define DEBUG_MODE
+
+void myName()
+{
+    Serial.print("Potenciometro: ");
+}
+
+NoSerial MySerial(true, myName);
+
 void setup()
 {
-    NoSerial MySerial(9600);
+    pinMode(A0, INPUT);
+    Serial.begin(9600);
 }
 
 void loop()
 {
-    MySerial.autoPrint(analogRead(A0));
+    int value = analogRead(A0);
+    MySerial.autoPrint(value, 2);
 }
