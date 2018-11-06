@@ -34,6 +34,7 @@ bool NoSerial::autoPrintln(int value, int filterVal)
     {
       _name();
       size_t printed = Serial.print(value);
+      Serial.print(" ");
 
       if (printed < 3)
         Serial.print("No value received! ");
@@ -46,15 +47,16 @@ bool NoSerial::autoPrintln(int value, int filterVal)
   return false;
 }
 
-bool NoSerial::commonPrintln(int value)
+bool NoSerial::commonPrint(int value)
 {
   if (_debugMode)
   {
     _name();
     size_t printed = Serial.print(value);
+    Serial.print(" ");
 
     if (printed < 3)
-      Serial.print("No value received!");
+      Serial.print("No value received! ");
 
     return true;
   }
