@@ -13,3 +13,4 @@ NoSerial KEYWORD1
 #######################################
 
 autoPrint KEYWORD2
+commonPrint KEYWORD2

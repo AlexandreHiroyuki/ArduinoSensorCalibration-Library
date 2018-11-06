@@ -14,17 +14,19 @@ typedef void (*namePrint)(void);
 void defaultName();
 class NoSerial
 {
-  public:
-    NoSerial(bool mode);
-    NoSerial(bool mode, namePrint name);
+public:
+  NoSerial(bool mode);
+  NoSerial(bool mode, namePrint name);
 
-    bool autoPrint(int value, int filterVal);
-    bool commonPrint(int value);
+  bool autoPrint(int value, int filterVal);
+  bool commonPrint(int value);
+  bool autoPrintln(int value, int filterVal);
+  bool commonPrintln(int value);
 
-  private:
-    bool _debugMode;
-    int _lastPrint;
-    namePrint _name;
+private:
+  bool _debugMode;
+  int _lastPrint;
+  namePrint _name;
 };
 
 #endif

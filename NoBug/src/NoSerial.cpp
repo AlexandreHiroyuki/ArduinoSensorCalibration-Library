@@ -25,7 +25,42 @@ NoSerial::NoSerial(bool mode, namePrint name)
   _name = name;
 }
 
-bool NoSerial::autoPrint(int value, int filterVal)
+bool NoSerial::autoPrintln(int value, int filterVal)
+{
+  if (_debugMode)
+  {
+    int filter = value - _lastPrint;
+    if (((filter > 0) && (filter >= filterVal)) || ((filter < 0) && (filter <= filterVal * -1)))
+    {
+      _name();
+      size_t printed = Serial.print(value);
+
+      if (printed < 3)
+        Serial.print("No value received! ");
+
+      _lastPrint = value;
+      return true;
+    }
+  }
+
+  return false;
+}
+
+bool NoSerial::commonPrintln(int value)
+{
+  if (_debugMode)
+  {
+    _name();
+    size_t printed = Serial.print(value);
+
+    if (printed < 3)
+      Serial.print("No value received!");
+
+    return true;
+  }
+}
+
+bool NoSerial::autoPrintln(int value, int filterVal)
 {
   if (_debugMode)
   {
@@ -46,7 +81,7 @@ bool NoSerial::autoPrint(int value, int filterVal)
   return false;
 }
 
-bool NoSerial::commonPrint(int value)
+bool NoSerial::commonPrintln(int value)
 {
   if (_debugMode)
   {

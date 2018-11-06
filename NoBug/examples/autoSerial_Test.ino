@@ -1,7 +1,5 @@
 #include <NoBug.h>
 
-#define DEBUG_MODE
-
 void myName()
 {
     Serial.print("Potenciometro: ");
@@ -18,5 +16,5 @@ void setup()
 void loop()
 {
     int value = analogRead(A0);
-    MySerial.autoPrint(value, 2);
+    MySerial.autoPrintln(value, 2);
 }
