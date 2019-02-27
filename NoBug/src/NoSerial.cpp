@@ -25,7 +25,7 @@ NoSerial::NoSerial(bool mode, namePrint name)
   _name = name;
 }
 
-bool NoSerial::autoPrintln(int value, int filterVal)
+bool NoSerial::autoPrint(int value, int filterVal)
 {
   if (_debugMode)
   {
