@@ -47,7 +47,7 @@ bool NoSerial::autoPrint(int value, int filterVal)
   return false;
 }
 
-bool NoSerial::commonPrint(int value)
+bool NoSerial::print(int value)
 {
   if (_debugMode)
   {
@@ -83,7 +83,7 @@ bool NoSerial::autoPrintln(int value, int filterVal)
   return false;
 }
 
-bool NoSerial::commonPrintln(int value)
+bool NoSerial::println(int value)
 {
   if (_debugMode)
   {
