@@ -9,14 +9,10 @@
 #include <Arduino.h>
 #include <limits.h>
 
-typedef void (*namePrint)(void);
-
-void defaultName();
 class NoSerial
 {
 public:
   NoSerial(bool mode);
-  NoSerial(bool mode, namePrint name);
 
   bool autoPrint(int value, int filterVal);
   bool commonPrint(int value);
@@ -26,7 +22,6 @@ public:
 private:
   bool _debugMode;
   int _lastPrint;
-  namePrint _name;
 };
 
 #endif

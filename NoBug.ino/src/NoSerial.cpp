@@ -6,23 +6,10 @@
 #include <NoSerial.h>
 #include <stdlib.h>
 
-void defaultName()
-{
-  Serial.print("Nameless: ");
-  return;
-}
-
 NoSerial::NoSerial(bool mode)
 {
   _debugMode = mode;
   _lastPrint = INT_MAX;
-  _name = defaultName;
-}
-NoSerial::NoSerial(bool mode, namePrint name)
-{
-  _debugMode = mode;
-  _lastPrint = INT_MAX;
-  _name = name;
 }
 
 bool NoSerial::autoPrint(int value, int filterVal)
@@ -32,12 +19,14 @@ bool NoSerial::autoPrint(int value, int filterVal)
     int filter = value - _lastPrint;
     if (((filter > 0) && (filter >= filterVal)) || ((filter < 0) && (filter <= filterVal * -1)))
     {
-      _name();
       size_t printed = Serial.print(value);
       Serial.print(" ");
 
       if (printed < 3)
-        Serial.print("No value received! ");
+      {
+        Serial.println("- No value received! -");
+        return false;
+      }
 
       _lastPrint = value;
       return true;
@@ -51,15 +40,19 @@ bool NoSerial::print(int value)
 {
   if (_debugMode)
   {
-    _name();
     size_t printed = Serial.print(value);
     Serial.print(" ");
 
     if (printed < 3)
-      Serial.print("No value received! ");
+    {
+      Serial.println("- No value received! -");
+      return false;
+    }
 
     return true;
   }
+
+  return false;
 }
 
 bool NoSerial::autoPrintln(int value, int filterVal)
@@ -69,11 +62,13 @@ bool NoSerial::autoPrintln(int value, int filterVal)
     int filter = value - _lastPrint;
     if (((filter > 0) && (filter >= filterVal)) || ((filter < 0) && (filter <= filterVal * -1)))
     {
-      _name();
       size_t printed = Serial.println(value);
 
       if (printed < 3)
-        Serial.println("No value received!");
+      {
+        Serial.println("- No value received! -");
+        return false;
+      }
 
       _lastPrint = value;
       return true;
@@ -87,11 +82,13 @@ bool NoSerial::println(int value)
 {
   if (_debugMode)
   {
-    _name();
     size_t printed = Serial.println(value);
 
     if (printed < 3)
-      Serial.println("No value received!");
+    {
+      Serial.println("- No value received! -");
+      return false;
+    }
 
     return true;
   }
