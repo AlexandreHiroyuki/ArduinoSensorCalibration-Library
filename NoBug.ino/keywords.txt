@@ -6,11 +6,11 @@
 # Class (KEYWORD1)
 #######################################
 
-NoSerial KEYWORD1
+NoSerial	KEYWORD1
 
 #######################################
 # Methods and Functions (KEYWORD2)
 #######################################
 
-autoPrint KEYWORD2
-commonPrint KEYWORD2
+autoPrint	KEYWORD2
+commonPrint	KEYWORD2
